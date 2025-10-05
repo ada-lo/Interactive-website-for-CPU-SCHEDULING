@@ -70,6 +70,15 @@ button { color: var(--text); }
 /* Replace dark .text-contrast to be light in dark mode */
 .text-contrast { color: var(--text) !important; }
 
+/* Header/title styling */
+.app-header h1 { color: #0ea5a0 !important; /* teal-ish for visibility */ }
+.app-header p { color: var(--muted) !important; }
+
+/* Select/options visibility */
+select, option { color: var(--text); background: var(--charcoal); }
+select option { color: var(--text); }
+option[disabled] { color: rgba(230,239,230,0.5); }
+
 /* Inputs/buttons fallback look when tailwind classes aren't present */
 input, select, button { font-family:inherit; }
 
