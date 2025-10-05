@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+/* Minimal global CSS to complement Tailwind utilities (Tailwind CDN used in index.html) */
+
+:root{
+	/* Dark-mode Palette */
+	--deep: #0b0f0c; /* very dark */
+	--charcoal: #1f2421; /* dark card */
+	--olive: #6f7b6f; /* accent */
+	--beige: #efe6d2; /* subtle light for accents if needed */
+
+	--text: #e6efe6; /* light text */
+	--muted: #cbd6cb; /* brighter muted for headings */
+
+	--bg-start: rgba(8,10,9,1);
+	--bg-end: rgba(31,36,33,0.6);
+	--accent-amber: #d97706;
+}
+
+html,body,#root{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+
+/* App background - subtle vertical gradient like your reference */
+.app-background{
+	min-height:100vh;
+	background: linear-gradient(180deg, var(--bg-start) 0%, rgba(11,15,12,0.95) 12%, rgba(31,36,33,0.85) 48%, var(--bg-end) 100%);
+	color:var(--text);
+}
+
+/* Card style used across components */
+.card{
+	background: var(--charcoal);
+	color: var(--text);
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(2,4,3,0.55);
+	border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Small utilities */
+.muted { color: var(--muted); }
+.accent { background: var(--olive); color: white; }
+.card-pad { padding: 20px; }
+
+/* Gantt chart specifics: keep absolute indicator contained */
+.gantt-container { position: relative; }
+.gantt-bar { overflow: hidden; }
+.gantt-line { position:absolute; top:0; bottom:0; width:2px; background: var(--accent-amber); transform:translateX(-50%); pointer-events:none; }
+
+/* Ensure card contents default to readable light colors; specific tailwind classes may override, so we increase specificity */
+.card, .card * { color: var(--text) !important; }
+
+/* Headings and titles inside cards should be slightly less bright for contrast but visible */
+.card h1, .card h2, .card h3, .card h4, .card .title { color: var(--muted) !important; }
+
+/* Body text, labels, table cells should be bright and readable */
+.card p, .card label, .card td, .card th, .card .text { color: var(--text) !important; }
+
+/* Gantt segment text */
+.gantt-segment { color: #ffffff !important; }
+
+/* Inputs and selects: ensure text is visible against dark cards */
+input, select, textarea { color: var(--text); background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
+input::placeholder, textarea::placeholder { color: rgba(230,239,230,0.48); }
+
+/* Table header emphasize */
+.card table thead th { color: var(--muted) !important; font-weight:700; }
+
+/* Buttons: ensure text visible on colored buttons */
+button { color: var(--text); }
+
+/* Replace dark .text-contrast to be light in dark mode */
+.text-contrast { color: var(--text) !important; }
+
+/* Inputs/buttons fallback look when tailwind classes aren't present */
+input, select, button { font-family:inherit; }
+
+/* keep the UI accessible on dark-to-light backgrounds */
+.text-contrast { color: #071009; }
+
+/* small responsive tweak */
+@media (max-width: 768px){
+	.card { border-radius:10px; }
+}
