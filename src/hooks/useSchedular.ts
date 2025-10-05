@@ -21,16 +21,25 @@ export const useScheduler = () => {
 
   // --- Process Management ---
 
-  const addProcess = useCallback(() => {
+  // addProcess can optionally accept a partial Process payload so callers
+  // (like a modal form) can provide custom arrival/burst/priority/color.
+  const addProcess = useCallback((payload?: Partial<Process>) => {
     const newId = Math.max(...processes.map(p => p.id), 0) + 1;
     const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4'];
+
+    const arrivalTime = typeof payload?.arrivalTime === 'number' ? Math.max(0, payload!.arrivalTime!) : 0;
+    const burstTime = typeof payload?.burstTime === 'number' ? Math.max(1, payload!.burstTime!) : 5;
+    const priority = typeof payload?.priority === 'number' ? payload!.priority! : 1;
+    const color = payload?.color ?? colors[(newId - 1) % colors.length];
+    const name = payload?.name ?? `P${newId}`;
+
     setProcesses(prev => [...prev, {
       id: newId,
-      name: `P${newId}`,
-      arrivalTime: 0,
-      burstTime: 5,
-      priority: 1,
-      color: colors[newId % colors.length]
+      name,
+      arrivalTime,
+      burstTime,
+      priority,
+      color
     }]);
   }, [processes]);
 
