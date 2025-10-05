@@ -51,6 +51,21 @@ export const useScheduler = () => {
     return scheduler(processes, quantum);
   }, [processes, algorithm, quantum]);
 
+  // Recalculate schedule whenever processes, algorithm or quantum change so
+  // the Gantt chart stays in sync with edits / newly added processes.
+  useEffect(() => {
+    const { chart, stats: calcStats } = calculateSchedule();
+    setGanttChart(chart);
+    setStats(calcStats);
+
+    // If current time exceeds the new chart length, clamp it so the indicator
+    // doesn't run off-screen.
+    const lastTime = chart[chart.length - 1]?.end;
+    if (typeof lastTime === 'number' && currentTime > lastTime) {
+      setCurrentTime(Math.max(0, lastTime));
+    }
+  }, [calculateSchedule]);
+
   const reset = useCallback(() => {
     setIsRunning(false);
     setCurrentTime(0);
