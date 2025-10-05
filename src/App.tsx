@@ -12,7 +12,7 @@ const CPUSchedulerApp: React.FC = () => {
   <div className="min-h-screen app-background text-slate-900">
       <div className="max-w-8xl mx-auto">
         <main className="w-full max-w-7xl mx-auto p-8">
-          <header className="mb-6">
+          <header className="mb-6 app-header">
             <h1 className="text-3xl font-extrabold">CPU Scheduling Simulator</h1>
             <p className="text-sm text-slate-600">Interactive visualization of scheduling algorithms</p>
           </header>
