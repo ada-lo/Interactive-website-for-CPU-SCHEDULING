@@ -58,8 +58,20 @@ html,body,#root{height:100%;margin:0;font-family:Inter, system-ui, -apple-system
 .gantt-segment { color: #ffffff !important; }
 
 /* Inputs and selects: ensure text is visible against dark cards */
-input, select, textarea { color: var(--text); background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
-input::placeholder, textarea::placeholder { color: rgba(230,239,230,0.48); }
+/* Inputs and selects inside cards get a slightly lighter surface and clear text for readability */
+.card input, .card select, .card textarea {
+	color: var(--text) !important;
+	background: rgba(255,255,255,0.03);
+	border: 1px solid rgba(255,255,255,0.08);
+	padding: 0.5rem 0.75rem;
+	border-radius: 8px;
+}
+.card input::placeholder, .card textarea::placeholder { color: rgba(230,239,230,0.48); }
+.card select { -webkit-appearance: none; appearance: none; }
+.card select option { color: var(--text); background: var(--charcoal); }
+
+/* Specific smaller number inputs (quantum) keep a compact width but visible text */
+.card input[type="number"] { color: var(--text) !important; }
 
 /* Table header emphasize */
 .card table thead th { color: var(--muted) !important; font-weight:700; }
